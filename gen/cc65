@@ -1,0 +1,5 @@
+/lib/cpp -nostdinc -I$HOME/bbcstuff/lcc/gen/include $1.c | $HOME/bbcstuff/lcc/gen/6502-bbc/rcc -S >$1.s
+cat $HOME/bbcstuff/lcc/gen/lib/header.s $1.s >go.s
+echo _end >>go.s
+as6502 -lo go.s
+rm go.s

@@ -1,0 +1,54 @@
+6502 Ansi C compiler
+====================
+
+This is a port to the 6502 of the lcc C compiler. It still needs testing, but (with a few reservations) implements full ansi C.
+
+NOTE: the compiler needs a host machine - it will NOT stand alone
+
+The three tar files here are
+	lccfe-1.9.tar.Z -the compiler front end
+		this is standard, and has not required
+		any changes from the distribution.
+	gen.tar.Z - the 6502 code generator
+		this is based very strongly on the naive vax generetor
+		in the standard distruibution of lcc
+	cross6502.tar.Z - the assembler
+		this is a cross assembler that I found on the net.
+		it isn't brilliant, but it does work.
+
+Unpack the fropnt end, and then add the new code generator into the directory (its obvious where). cd gen, and type make. this should prodice the file rcc in the directory gen/6502-bbc. Copy this to the lib directory, and then tweak the file gen/compile so it can find the assembler, compiler, header.s, and a pre-processor.
+
+The compiler should be called with a single file. the file should have a .c extension, but sthis should not be speciied to the compiler. The result should be a file called 6502.out. This is in ascii format, and should be downloaded. The basic program Loader should then be used to load the program (it can then be saved in binary form) - remember to set PAGE high first. The code is currently assembled to run at &1900, with the stack growing down from &5000. These can both easily be changed by tweaking header.s
+
+
+TODO
+====
+Extensive testing! Please report any bugs.
+
+Multi file compilations. The assembler is currently unable to support such
+things. It would also be nice to use the real lcc driver.
+
+Libraries - currently the functions provided are limited. Those that are available are the system routines from small C with a few mods to use 32 bit ints, and return results in r0. These are in header.s which should replace the header.s file currently installed in gen.tar.Z (which is even more limited).
+
+Floating Point - adding this would be easy if I had some routines.
+
+Optimisation - probably the most important - the code currently generated is
+fast(ish), but very large. It could probly be halved with a little work. Making
+sure it works is a highter priority though.
+
+ARGC/ARGV support.
+
+Making it stand alone? Would be far more usefull, but will require all of the
+above to by performed first.
+
+Copyright
+=========
+This files of the front end, and the cross assembler are copyright as per the
+original release, and should be used within the terms of the licenses described
+in the appropriate files.
+
+The 6502 code generator is copyright of myself, but may be freely used for
+non-commercial purposes.
+
+Ian
+ian@ohm.york.ac.uk

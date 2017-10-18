@@ -1,0 +1,21 @@
+6502 Compiler Beta#2 release
+============================
+
+I've fixed a number of bugs (to numerous to mention)...
+
+There are now some libraries borrowed from small C. These implement some of the Unix system calls. The file <lib.h> must be included to ensure that arguments are passed correctly beween the machine code libs, and the C calling code.
+
+Optimisations - there are some! The generated code is about 15% faster, and 10% smaller (prehaps a little more, as the libraries are still the same).
+
+
+You will need a new copy of gen, and as6502 (I had to add a new numerical op to handle 32 bit shifts).
+
+Ian
+
+P.S. Bugs in optimiser - typo fixed in gen.c!
+
+Fri Jul 09 1993 15:07:29 BST : new gen.c
+More optimiations (mainly about casts). The improvement over the original release is now about 25% smaller code. Performance is currently about 80DS. More details to follow.
+
+Wed Jul 14 1993 15:09:31 BST 
+Loads more optimisations. (smaller+faster code). Local variables are now pretty quick, and the ++ operators are a whole lot better. Dhrystone can now be run on a standard machine.
